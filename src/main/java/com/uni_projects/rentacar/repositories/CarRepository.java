@@ -34,12 +34,28 @@ public class CarRepository {
         return true;
     }
 
-    public List<Car> fetchAll(String customerLocation) {
+//    public List<Car> fetchAll(String customerLocation) {
+//        StringBuilder query = new StringBuilder();
+//        query.append("SELECT * FROM td_cars WHERE city_location = '")
+//                .append(customerLocation)
+//                .append("'");
+//
+//        return this.db.query(query.toString(), new CarRowMapper());
+//    }
+
+    public List<Car> fetchAll() {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM td_cars WHERE city_location = '")
-                .append(customerLocation)
-                .append("'");
+        query.append("SELECT * FROM td_cars");
 
         return this.db.query(query.toString(), new CarRowMapper());
+    }
+
+    public Car fetchSingle(int carId) {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM td_cars WHERE id_car = '")
+                .append(carId)
+                .append("'");
+
+        return this.db.queryForObject(query.toString(), new CarRowMapper());
     }
 }

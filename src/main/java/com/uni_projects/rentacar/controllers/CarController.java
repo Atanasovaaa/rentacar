@@ -18,9 +18,24 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/cars/{customerLocation}")
-    public ResponseEntity<?> fetchAllCars(@PathVariable String customerLocation) {
-        ArrayList<Car> carCollection = (ArrayList<Car>) this.carService.getAllCars(customerLocation);
+//    @GetMapping("/cars/{customerLocation}")
+//    public ResponseEntity<?> fetchAllCars(@PathVariable String customerLocation) {
+//        ArrayList<Car> carCollection = (ArrayList<Car>) this.carService.getAllCars(customerLocation);
+//
+//        if(!carCollection.isEmpty()) {
+//            return AppResponse.success()
+//                    .withData(carCollection)
+//                    .build();
+//        }
+//
+//        return AppResponse.error()
+//                .withMessage("No cars found in our system")
+//                .build();
+//    }
+
+    @GetMapping("/cars")
+    public ResponseEntity<?> fetchAllCars() {
+        ArrayList<Car> carCollection = (ArrayList<Car>) this.carService.getAllCars();
 
         if(!carCollection.isEmpty()) {
             return AppResponse.success()
@@ -32,11 +47,21 @@ public class CarController {
                 .withMessage("No cars found in our system")
                 .build();
     }
-//
-//    @GetMapping("/cars/{carId}")
-//    public ResponseEntity<?> fetchSingleCar(@PathVariable int carId) {
-//
-//    }
+
+    @GetMapping("/cars/{carId}")
+    public ResponseEntity<?> fetchSingleCar(@PathVariable int carId) {
+        Car carResponse = this.carService.getSingleCarById(carId);
+
+        if (carResponse != null) {
+            return AppResponse.success()
+                    .withDataAsArray(carResponse)
+                    .build();
+        }
+
+        return AppResponse.error()
+                .withMessage("Car not found")
+                .build();
+    }
 
     @PostMapping("/cars")
     public ResponseEntity<?> addNewCar(@RequestBody Car car) {

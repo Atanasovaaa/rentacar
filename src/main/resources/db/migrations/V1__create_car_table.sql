@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS td_cars(
-    carId INT PRIMARY KEY AUTO_INCREMENT,
+    id_car INT PRIMARY KEY AUTO_INCREMENT,
     brand_name VARCHAR(256),
     model_name VARCHAR(256),
     city_location VARCHAR(256),
