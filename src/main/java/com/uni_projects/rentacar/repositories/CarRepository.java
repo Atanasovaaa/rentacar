@@ -58,4 +58,27 @@ public class CarRepository {
 
         return this.db.queryForObject(query.toString(), new CarRowMapper());
     }
+
+    public boolean update(Car car) {
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE td_cars ")
+                .append("SET brand_name = ?, ")
+                .append("model_name = ?, ")
+                .append("city_location = ?, ")
+                .append("price_per_day = ? ")
+                .append("WHERE id_car = ?");
+
+        int resultCount = this.db.update(query.toString(),
+                car.getBrandName(),
+                car.getModelName(),
+                car.getCityLocation(),
+                car.getPricePerDay(),
+                car.getCarId());
+
+        if (resultCount > 1) {
+            throw new RuntimeException("Duplicate car id: " + car.getCarId());
+        }
+
+        return resultCount == 1;
+    }
 }

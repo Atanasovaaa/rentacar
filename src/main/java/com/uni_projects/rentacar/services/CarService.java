@@ -30,4 +30,8 @@ public class CarService {
     public Car getSingleCarById(int carId) {
         return this.carRepository.fetchSingle(carId);
     }
+
+    public boolean updateCar(Car car) {
+        return this.carRepository.update(car);
+    }
 }

@@ -77,10 +77,20 @@ public class CarController {
                 .build();
     }
 
-//    @PutMapping("/cars")
-//    public ResponseEntity<?> updateCar(@RequestBody Car car) {
-//
-//    }
+    @PutMapping("/cars")
+    public ResponseEntity<?> updateCar(@RequestBody Car car) {
+        boolean isUpdateSuccessful = this.carService.updateCar(car);
+
+        if (isUpdateSuccessful) {
+            return AppResponse.success()
+                    .withMessage("Car data successfully updated")
+                    .build();
+        }
+
+        return AppResponse.error()
+                .withMessage("Car could not be updated")
+                .build();
+    }
 //
 //    @DeleteMapping("/cars/{id}")
 //    public ResponseEntity<?> deleteCar(@PathVariable int id) {
