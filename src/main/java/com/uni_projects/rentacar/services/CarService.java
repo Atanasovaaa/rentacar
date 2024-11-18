@@ -34,4 +34,8 @@ public class CarService {
     public boolean updateCar(Car car) {
         return this.carRepository.update(car);
     }
+
+    public boolean deleteCar(int carId) {
+        return this.carRepository.delete(carId);
+    }
 }

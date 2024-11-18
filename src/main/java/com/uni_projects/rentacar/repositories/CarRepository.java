@@ -45,7 +45,7 @@ public class CarRepository {
 
     public List<Car> fetchAll() {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM td_cars");
+        query.append("SELECT * FROM td_cars WHERE is_existing = 1");
 
         return this.db.query(query.toString(), new CarRowMapper());
     }
@@ -54,7 +54,8 @@ public class CarRepository {
         StringBuilder query = new StringBuilder();
         query.append("SELECT * FROM td_cars WHERE id_car = '")
                 .append(carId)
-                .append("'");
+                .append("' AND is_existing = 1");
+
 
         return this.db.queryForObject(query.toString(), new CarRowMapper());
     }
@@ -78,6 +79,17 @@ public class CarRepository {
         if (resultCount > 1) {
             throw new RuntimeException("Duplicate car id: " + car.getCarId());
         }
+
+        return resultCount == 1;
+    }
+
+    public boolean delete(int carId) {
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE td_cars ")
+                .append("SET is_existing = 0 ")
+                .append("WHERE id_car = ?");
+
+        int resultCount = this.db.update(query.toString(), carId);
 
         return resultCount == 1;
     }

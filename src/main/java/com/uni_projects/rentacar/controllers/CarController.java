@@ -91,9 +91,19 @@ public class CarController {
                 .withMessage("Car could not be updated")
                 .build();
     }
-//
-//    @DeleteMapping("/cars/{id}")
-//    public ResponseEntity<?> deleteCar(@PathVariable int id) {
-//
-//    }
+
+    @DeleteMapping("/cars/{carId}")
+    public ResponseEntity<?> deleteCar(@PathVariable int carId) {
+        boolean isDeleteSuccessful = this.carService.deleteCar(carId);
+
+        if (isDeleteSuccessful) {
+            return AppResponse.success()
+                    .withMessage("Car has been removed")
+                    .build();
+        }
+
+        return AppResponse.error()
+                .withMessage("Car could not be deleted")
+                .build();
+    }
 }
