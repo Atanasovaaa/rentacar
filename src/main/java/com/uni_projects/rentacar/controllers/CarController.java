@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Controller
@@ -17,9 +18,20 @@ public class CarController {
         this.carService = carService;
     }
 
-//    @GetMapping("/cars")
-//    public ResponseEntity<?> fetchAllCars() {
-//    }
+    @GetMapping("/cars/{customerLocation}")
+    public ResponseEntity<?> fetchAllCars(@PathVariable String customerLocation) {
+        ArrayList<Car> carCollection = (ArrayList<Car>) this.carService.getAllCars(customerLocation);
+
+        if(!carCollection.isEmpty()) {
+            return AppResponse.success()
+                    .withData(carCollection)
+                    .build();
+        }
+
+        return AppResponse.error()
+                .withMessage("No cars found in our system")
+                .build();
+    }
 //
 //    @GetMapping("/cars/{carId}")
 //    public ResponseEntity<?> fetchSingleCar(@PathVariable int carId) {
@@ -28,7 +40,6 @@ public class CarController {
 
     @PostMapping("/cars")
     public ResponseEntity<?> addNewCar(@RequestBody Car car) {
-        HashMap<String, Object> response = new HashMap<>();
 
         if(this.carService.addCar(car)) {
             return AppResponse.success()

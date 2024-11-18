@@ -4,6 +4,8 @@ import com.uni_projects.rentacar.entities.Car;
 import com.uni_projects.rentacar.repositories.CarRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarService {
 
@@ -15,5 +17,9 @@ public class CarService {
 
     public boolean addCar(Car car) {
         return this.carRepository.add(car);
+    }
+
+    public List<Car> getAllCars(String customerLocation) {
+        return this.carRepository.fetchAll(customerLocation);
     }
 }
