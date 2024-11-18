@@ -1,6 +1,7 @@
 package com.uni_projects.rentacar.controllers;
 
 import com.uni_projects.rentacar.entities.Car;
+import com.uni_projects.rentacar.http.AppResponse;
 import com.uni_projects.rentacar.services.CarService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,11 +30,15 @@ public class CarController {
     public ResponseEntity<?> addNewCar(@RequestBody Car car) {
         HashMap<String, Object> response = new HashMap<>();
 
-        if (this.carService.addCar(car)) {
-            response.put("status", "in if");
+        if(this.carService.addCar(car)) {
+            return AppResponse.success()
+                    .withMessage("Customer created successfully")
+                    .build();
         }
 
-        return ResponseEntity.ok(response);
+        return AppResponse.error()
+                .withMessage("Customer could not be created")
+                .build();
     }
 
 //    @PutMapping("/cars")
