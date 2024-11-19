@@ -13,7 +13,7 @@ public class CarRowMapper implements RowMapper<Car> {
         Car car = new Car();
         car.setBrandName(rs.getString("brand_name"));
         car.setModelName(rs.getString("model_name"));
-        car.setCityLocation(rs.getString("city_location"));
+        car.setCityName(rs.getString("city_name"));
         car.setPricePerDay(rs.getBigDecimal("price_per_day"));
         car.setAvailable(rs.getBoolean("is_available"));
 

@@ -1,6 +1,7 @@
 package com.uni_projects.rentacar.repositories;
 
 import com.uni_projects.rentacar.entities.Car;
+import com.uni_projects.rentacar.enums.CityNameType;
 import com.uni_projects.rentacar.mappers.CarRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,16 +17,20 @@ public class CarRepository {
     }
 
     public boolean add(Car car) {
+        if (!isValidCityName(car.getCityName())) {
+            return false;
+        }
+
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO td_cars ")
-                .append("(brand_name, model_name, city_location, price_per_day) ")
+                .append("(brand_name, model_name, city_name, price_per_day) ")
                 .append("VALUES ")
                 .append("('")
                 .append(car.getBrandName())
                 .append("', '")
                 .append(car.getModelName())
                 .append("', '")
-                .append(car.getCityLocation())
+                .append(car.getCityName())
                 .append("', ")
                 .append(car.getPricePerDay())
                 .append(")");
@@ -36,7 +41,7 @@ public class CarRepository {
 
 //    public List<Car> fetchAll(String customerLocation) {
 //        StringBuilder query = new StringBuilder();
-//        query.append("SELECT * FROM td_cars WHERE city_location = '")
+//        query.append("SELECT * FROM td_cars WHERE city_name = '")
 //                .append(customerLocation)
 //                .append("'");
 //
@@ -61,18 +66,22 @@ public class CarRepository {
     }
 
     public boolean update(Car car) {
+        if (!isValidCityName(car.getCityName())) {
+            return false;
+        }
+
         StringBuilder query = new StringBuilder();
         query.append("UPDATE td_cars ")
                 .append("SET brand_name = ?, ")
                 .append("model_name = ?, ")
-                .append("city_location = ?, ")
+                .append("city_name = ?, ")
                 .append("price_per_day = ? ")
                 .append("WHERE id_car = ?");
 
         int resultCount = this.db.update(query.toString(),
                 car.getBrandName(),
                 car.getModelName(),
-                car.getCityLocation(),
+                car.getCityName(),
                 car.getPricePerDay(),
                 car.getCarId());
 
@@ -81,6 +90,13 @@ public class CarRepository {
         }
 
         return resultCount == 1;
+    }
+
+    private boolean isValidCityName(String cityName) {
+        return cityName.equals(CityNameType.SOFIA.getCityNameType()) ||
+                cityName.equals(CityNameType.PLOVDIV.getCityNameType()) ||
+                cityName.equals(CityNameType.VARNA.getCityNameType()) ||
+                cityName.equals(CityNameType.BURGAS.getCityNameType());
     }
 
     public boolean delete(int carId) {

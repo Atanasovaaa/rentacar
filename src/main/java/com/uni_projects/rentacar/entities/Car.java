@@ -6,7 +6,7 @@ public class Car {
     private int carId;
     private String brandName;
     private String modelName;
-    private String cityLocation;
+    private String cityName;
     private BigDecimal pricePerDay;
     private boolean isAvailable;
 
@@ -34,12 +34,12 @@ public class Car {
         this.modelName = modelName;
     }
 
-    public String getCityLocation() {
-        return cityLocation;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCityLocation(String cityLocation) {
-        this.cityLocation = cityLocation;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public BigDecimal getPricePerDay() {

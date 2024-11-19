@@ -68,12 +68,12 @@ public class CarController {
 
         if(this.carService.addCar(car)) {
             return AppResponse.success()
-                    .withMessage("Customer created successfully")
+                    .withMessage("Car created successfully")
                     .build();
         }
 
         return AppResponse.error()
-                .withMessage("Customer could not be created")
+                .withMessage("Car could not be created. Our available cities are Plovdiv, Sofia, Varna and Burgas.")
                 .build();
     }
 
@@ -88,7 +88,7 @@ public class CarController {
         }
 
         return AppResponse.error()
-                .withMessage("Car could not be updated")
+                .withMessage("Car could not be updated. Our available cities are Plovdiv, Sofia, Varna and Burgas")
                 .build();
     }
 
