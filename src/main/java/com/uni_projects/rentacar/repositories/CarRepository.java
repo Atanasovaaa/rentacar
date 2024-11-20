@@ -55,10 +55,10 @@ public class CarRepository {
         return this.db.query(query.toString(), new CarRowMapper());
     }
 
-    public Car fetchSingle(int carId) {
+    public Car fetchSingle(int id) {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM td_cars WHERE id_car = '")
-                .append(carId)
+        query.append("SELECT * FROM td_cars WHERE id = '")
+                .append(id)
                 .append("' AND is_existing = 1");
 
 
@@ -76,17 +76,17 @@ public class CarRepository {
                 .append("model_name = ?, ")
                 .append("city_name = ?, ")
                 .append("price_per_day = ? ")
-                .append("WHERE id_car = ?");
+                .append("WHERE id = ?");
 
         int resultCount = this.db.update(query.toString(),
                 car.getBrandName(),
                 car.getModelName(),
                 car.getCityName(),
                 car.getPricePerDay(),
-                car.getCarId());
+                car.getId());
 
         if (resultCount > 1) {
-            throw new RuntimeException("Duplicate car id: " + car.getCarId());
+            throw new RuntimeException("Duplicate car id: " + car.getId());
         }
 
         return resultCount == 1;
@@ -99,13 +99,13 @@ public class CarRepository {
                 cityName.equals(CityNameType.BURGAS.getCityNameType());
     }
 
-    public boolean delete(int carId) {
+    public boolean delete(int id) {
         StringBuilder query = new StringBuilder();
         query.append("UPDATE td_cars ")
                 .append("SET is_existing = 0 ")
-                .append("WHERE id_car = ?");
+                .append("WHERE id = ?");
 
-        int resultCount = this.db.update(query.toString(), carId);
+        int resultCount = this.db.update(query.toString(), id);
 
         return resultCount == 1;
     }

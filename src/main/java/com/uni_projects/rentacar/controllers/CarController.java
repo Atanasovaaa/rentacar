@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @Controller
 public class CarController {
@@ -48,9 +47,9 @@ public class CarController {
                 .build();
     }
 
-    @GetMapping("/cars/{carId}")
-    public ResponseEntity<?> fetchSingleCar(@PathVariable int carId) {
-        Car carResponse = this.carService.getSingleCarById(carId);
+    @GetMapping("/cars/{id}")
+    public ResponseEntity<?> fetchSingleCar(@PathVariable int id) {
+        Car carResponse = this.carService.getSingleCarById(id);
 
         if (carResponse != null) {
             return AppResponse.success()
@@ -92,9 +91,9 @@ public class CarController {
                 .build();
     }
 
-    @DeleteMapping("/cars/{carId}")
-    public ResponseEntity<?> deleteCar(@PathVariable int carId) {
-        boolean isDeleteSuccessful = this.carService.deleteCar(carId);
+    @DeleteMapping("/cars/{id}")
+    public ResponseEntity<?> deleteCar(@PathVariable int id) {
+        boolean isDeleteSuccessful = this.carService.deleteCar(id);
 
         if (isDeleteSuccessful) {
             return AppResponse.success()

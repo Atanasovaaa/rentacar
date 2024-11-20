@@ -3,19 +3,19 @@ package com.uni_projects.rentacar.entities;
 import java.math.BigDecimal;
 
 public class Car {
-    private int carId;
+    private int id;
     private String brandName;
     private String modelName;
     private String cityName;
     private BigDecimal pricePerDay;
     private boolean isAvailable;
 
-    public int getCarId() {
-        return carId;
+    public int getId() {
+        return id;
     }
 
-    public void setCarId(int carId) {
-        this.carId = carId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBrandName() {
