@@ -8,7 +8,6 @@ public class Car {
     private String modelName;
     private String cityName;
     private BigDecimal pricePerDay;
-    private boolean isAvailable;
 
     public int getId() {
         return id;
@@ -48,13 +47,5 @@ public class Car {
 
     public void setPricePerDay(BigDecimal pricePerDay) {
         this.pricePerDay = pricePerDay;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
     }
 }

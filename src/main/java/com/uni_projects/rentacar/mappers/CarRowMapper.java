@@ -15,7 +15,6 @@ public class CarRowMapper implements RowMapper<Car> {
         car.setModelName(rs.getString("model_name"));
         car.setCityName(rs.getString("city_name"));
         car.setPricePerDay(rs.getBigDecimal("price_per_day"));
-        car.setAvailable(rs.getBoolean("is_available"));
 
         return car;
     }
