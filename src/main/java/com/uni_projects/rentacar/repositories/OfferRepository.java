@@ -37,7 +37,13 @@ public class OfferRepository {
                 .append(userId)
                 .append(" AND is_existing = 1");
 
-        return this.db.queryForObject(query.toString(), new OfferRowMapper());
+        ArrayList<Offer> offersCollection = (ArrayList<Offer>) this.db.query(query.toString(), new OfferRowMapper());
+
+        if(offersCollection.isEmpty()) {
+            return null;
+        }
+
+        return offersCollection.get(0);
     }
 
     public boolean create(Offer offer) {

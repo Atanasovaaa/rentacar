@@ -6,6 +6,7 @@ import com.uni_projects.rentacar.mappers.CarRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -57,12 +58,17 @@ public class CarRepository {
 
     public Car fetchSingle(int id) {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM td_cars WHERE id = '")
+        query.append("SELECT * FROM td_cars WHERE id = ")
                 .append(id)
-                .append("' AND is_existing = 1");
+                .append(" AND is_existing = 1");
 
+        ArrayList<Car> carsByCityCollection = (ArrayList<Car>) this.db.query(query.toString(), new CarRowMapper());
 
-        return this.db.queryForObject(query.toString(), new CarRowMapper());
+        if(carsByCityCollection.isEmpty()) {
+            return null;
+        }
+
+        return carsByCityCollection.get(0);
     }
 
     public boolean update(Car car) {
