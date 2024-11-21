@@ -57,7 +57,7 @@ public class User {
         this.age = age;
     }
 
-    public int isHasCrashes() {
+    public int getHasCrashes() {
         return hasCrashes;
     }
 

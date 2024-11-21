@@ -27,4 +27,27 @@ public class UserRepository {
 
         return collection.get(0);
     }
+
+    public boolean add(User user) {
+        StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO td_users ")
+                .append("(first_name, last_name, address, phone_number, age, has_crashes) ")
+                .append("VALUES ")
+                .append("('")
+                .append(user.getFirstName())
+                .append("', '")
+                .append(user.getLastName())
+                .append("', '")
+                .append(user.getAddress())
+                .append("', '")
+                .append(user.getPhoneNumber())
+                .append("', ")
+                .append(user.getAge())
+                .append(", ")
+                .append(user.getHasCrashes())
+                .append(")");
+
+        this.db.execute(query.toString());
+        return true;
+    }
 }

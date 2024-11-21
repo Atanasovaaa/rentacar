@@ -19,12 +19,12 @@ public class CarService {
         return this.carRepository.add(car);
     }
 
-//    public List<Car> getAllCars(String customerLocation) {
-//        return this.carRepository.fetchAll(customerLocation);
-//    }
-
     public List<Car> getAllCars() {
         return this.carRepository.fetchAll();
+    }
+
+    public List<Car> getAllCarsByUserCity(String city){
+        return this.carRepository.fetchAllByUserCity(city);
     }
 
     public Car getSingleCarById(int carId) {

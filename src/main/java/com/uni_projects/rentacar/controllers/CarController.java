@@ -17,20 +17,20 @@ public class CarController {
         this.carService = carService;
     }
 
-//    @GetMapping("/cars/{customerLocation}")
-//    public ResponseEntity<?> fetchAllCars(@PathVariable String customerLocation) {
-//        ArrayList<Car> carCollection = (ArrayList<Car>) this.carService.getAllCars(customerLocation);
-//
-//        if(!carCollection.isEmpty()) {
-//            return AppResponse.success()
-//                    .withData(carCollection)
-//                    .build();
-//        }
-//
-//        return AppResponse.error()
-//                .withMessage("No cars found in our system")
-//                .build();
-//    }
+    @GetMapping("/cars/byCity/{userCity}")
+    public ResponseEntity<?> fetchAllCarsByUserCity(@PathVariable String userCity) {
+        ArrayList<Car> carCollection = (ArrayList<Car>) this.carService.getAllCarsByUserCity(userCity);
+
+        if(!carCollection.isEmpty()) {
+            return AppResponse.success()
+                    .withData(carCollection)
+                    .build();
+        }
+
+        return AppResponse.error()
+                .withMessage("No cars found in our system")
+                .build();
+    }
 
     @GetMapping("/cars")
     public ResponseEntity<?> fetchAllCars() {

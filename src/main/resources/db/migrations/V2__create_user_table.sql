@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS td_users(
     address VARCHAR(256),
     phone_number VARCHAR(10),
     age INT,
-    has_craches INT DEFAULT 0,
+    has_crashes INT DEFAULT 0,
     is_active INT DEFAULT 1
-);
+    );

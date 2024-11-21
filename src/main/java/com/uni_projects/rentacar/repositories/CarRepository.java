@@ -39,18 +39,18 @@ public class CarRepository {
         return true;
     }
 
-//    public List<Car> fetchAll(String customerLocation) {
-//        StringBuilder query = new StringBuilder();
-//        query.append("SELECT * FROM td_cars WHERE city_name = '")
-//                .append(customerLocation)
-//                .append("'");
-//
-//        return this.db.query(query.toString(), new CarRowMapper());
-//    }
-
     public List<Car> fetchAll() {
         StringBuilder query = new StringBuilder();
         query.append("SELECT * FROM td_cars WHERE is_existing = 1");
+
+        return this.db.query(query.toString(), new CarRowMapper());
+    }
+
+    public List<Car> fetchAllByUserCity(String city) {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM td_cars WHERE city_name = '")
+                .append(city)
+                .append("' AND is_available = 1");
 
         return this.db.query(query.toString(), new CarRowMapper());
     }
