@@ -31,6 +31,22 @@ public class OfferController {
                 .build();
     }
 
+    @GetMapping("/offers/calculate/{id}")
+    public ResponseEntity<?> calculateSingleOffer(@PathVariable int id) {
+        Offer offerResponse = this.offerService.fetchOfferById(id);
+        Offer calculatedOffer = this.offerService.calculatePrice(offerResponse);
+
+        if (calculatedOffer != null) {
+            return AppResponse.success()
+                    .withDataAsArray(calculatedOffer)
+                    .build();
+        }
+
+        return AppResponse.error()
+                .withMessage("Could not find offer")
+                .build();
+    }
+
     @GetMapping("/offers/user/{userId}")
     public ResponseEntity<?> fetchOfferByUserId(@PathVariable int userId) {
         Offer userOfferResponse = this.offerService.fetchOfferByUserId(userId);
@@ -47,15 +63,31 @@ public class OfferController {
 
     @PostMapping("/offers")
     public ResponseEntity<?> createOffer(@RequestBody Offer offer) {
+        boolean isOfferCreated = this.offerService.createOffer(offer);
 
-        if(this.offerService.createOffer(offer)) {
+        if(isOfferCreated) {
             return AppResponse.success()
-                    .withMessage("Offer successfully created")
+                    .withDataAsArray(offer)
                     .build();
         }
 
         return AppResponse.error()
                 .withMessage("Offer could not be created")
+                .build();
+    }
+
+    @PutMapping("/offers")
+    public ResponseEntity<?> acceptOffer(@RequestBody Offer offer) {
+        boolean isUpdateSuccess = this.offerService.activateOffer(offer);
+
+        if(!isUpdateSuccess) {
+            return AppResponse.success()
+                    .withMessage("Offer accepted")
+                    .build();
+        }
+
+        return AppResponse.error()
+                .withMessage("Offer could not be accepted")
                 .build();
     }
 

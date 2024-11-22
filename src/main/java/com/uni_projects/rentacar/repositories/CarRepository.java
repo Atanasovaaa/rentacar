@@ -62,13 +62,13 @@ public class CarRepository {
                 .append(id)
                 .append(" AND is_existing = 1");
 
-        ArrayList<Car> carsByCityCollection = (ArrayList<Car>) this.db.query(query.toString(), new CarRowMapper());
+        ArrayList<Car> carsCollection = (ArrayList<Car>) this.db.query(query.toString(), new CarRowMapper());
 
-        if(carsByCityCollection.isEmpty()) {
+        if(carsCollection.isEmpty()) {
             return null;
         }
 
-        return carsByCityCollection.get(0);
+        return carsCollection.get(0);
     }
 
     public boolean update(Car car) {

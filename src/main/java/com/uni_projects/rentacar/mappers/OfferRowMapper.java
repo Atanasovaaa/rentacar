@@ -11,10 +11,10 @@ public class OfferRowMapper implements RowMapper<Offer> {
     @Override
     public Offer mapRow(ResultSet rs, int rowNum) throws SQLException {
         Offer offer = new Offer();
+        offer.setId(rs.getInt("id"));
         offer.setUserId(rs.getInt("user_id"));
         offer.setCarId(rs.getInt("car_id"));
         offer.setRentDays(rs.getInt("rent_days"));
-        offer.setStartDate(rs.getDate("start_date"));
         offer.setTotalPrice(rs.getBigDecimal("total_price"));
 
         return offer;
