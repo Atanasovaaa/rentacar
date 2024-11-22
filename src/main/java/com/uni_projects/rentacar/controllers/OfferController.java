@@ -38,7 +38,7 @@ public class OfferController {
 
         if (calculatedOffer != null) {
             return AppResponse.success()
-                    .withDataAsArray(calculatedOffer)
+                    .withMessage("Offer calculated")
                     .build();
         }
 
